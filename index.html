@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Mail, Phone, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Mail, Phone } from 'lucide-react';
 
 export default function NivritiSite() {
   const [name, setName] = useState('');
@@ -12,69 +12,73 @@ export default function NivritiSite() {
   };
 
   const products = [
-    { name: 'Handmade Candle', price: 'BDT 500', desc: 'Scented and beautifully crafted.', image: 'https://via.placeholder.com/300' },
-    { name: 'Decorative Jar', price: 'BDT 350', desc: 'Perfect for home decoration.', image: 'https://via.placeholder.com/300' },
-    { name: 'Custom Soap', price: 'BDT 200', desc: 'Natural ingredients, aromatic.', image: 'https://via.placeholder.com/300' },
+    { name: 'Handmade Candle', price: 'BDT 500', desc: 'Scented and beautifully crafted.', image: 'https://via.placeholder.com/400x300?text=Candle' },
+    { name: 'Decorative Jar', price: 'BDT 350', desc: 'Perfect for home decoration.', image: 'https://via.placeholder.com/400x300?text=Jar' },
+    { name: 'Custom Soap', price: 'BDT 200', desc: 'Natural ingredients, aromatic.', image: 'https://via.placeholder.com/400x300?text=Soap' },
   ];
 
   return (
-    <div className="min-h-screen text-gray-900 bg-white selection:bg-indigo-200">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 text-gray-900 selection:bg-indigo-200">
       {/* Header */}
-      <header className="sticky top-0 bg-white shadow-md py-4">
+      <header className="sticky top-0 bg-white/80 backdrop-blur-md shadow-md py-4 z-50">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Nivriti</h1>
-          <nav className="space-x-6">
-            <a href="#products" className="hover:text-indigo-600">Products</a>
-            <a href="#contact" className="hover:text-indigo-600">Contact</a>
+          <h1 className="text-3xl font-bold text-pink-600">Nivriti</h1>
+          <nav className="space-x-6 font-semibold">
+            <a href="#products" className="hover:text-purple-600 transition">Products</a>
+            <a href="#contact" className="hover:text-purple-600 transition">Contact</a>
           </nav>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="bg-indigo-50 py-20 text-center">
-        <h2 className="text-4xl font-extrabold mb-4">Welcome to Nivriti</h2>
-        <p className="text-lg max-w-xl mx-auto">Discover handmade products crafted with love. High-quality, unique, and perfect for gifting or decorating your home.</p>
-        <a href="#products" className="mt-6 inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-indigo-700 transition">
-          Explore Products <ArrowRight className="w-4 h-4" />
+      <section className="py-28 text-center relative overflow-hidden">
+        <h2 className="text-5xl font-extrabold text-purple-700 mb-4">Handmade with Love</h2>
+        <p className="text-xl text-gray-700 max-w-xl mx-auto mb-8">Explore Nivriti’s vibrant collection of handcrafted products that add color and joy to your life.</p>
+        <a href="#products" className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-3xl shadow-lg hover:scale-105 transform transition">
+          Browse Products <ArrowRight className="w-5 h-5" />
         </a>
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-72 h-72 bg-pink-200 rounded-full opacity-40 filter blur-3xl animate-pulse"></div>
+        <div className="absolute top-10 right-10 w-56 h-56 bg-purple-200 rounded-full opacity-50 filter blur-2xl animate-pulse"></div>
       </section>
 
       {/* Products */}
       <section id="products" className="max-w-6xl mx-auto py-20 px-6">
-        <h3 className="text-3xl font-bold text-center mb-12">Our Handmade Products</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h3 className="text-4xl font-bold text-center text-purple-600 mb-12">Our Colorful Creations</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((p, idx) => (
-            <div key={idx} className="border rounded-2xl shadow-lg p-4 hover:scale-105 transform transition">
-              <img src={p.image} alt={p.name} className="rounded-xl mb-4 w-full h-60 object-cover" />
-              <h4 className="text-xl font-semibold">{p.name}</h4>
-              <p className="text-gray-600 mt-2">{p.desc}</p>
-              <p className="mt-2 font-bold">{p.price}</p>
+            <div key={idx} className="rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-2xl overflow-hidden bg-white">
+              <div className="overflow-hidden rounded-t-3xl">
+                <img src={p.image} alt={p.name} className="w-full h-64 object-cover transition-transform duration-500 hover:scale-110" />
+              </div>
+              <div className="p-6 space-y-2">
+                <h4 className="text-2xl font-bold text-pink-600">{p.name}</h4>
+                <p className="text-gray-700">{p.desc}</p>
+                <p className="font-semibold text-purple-700 mt-2">{p.price}</p>
+                <button className="mt-4 w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-xl shadow-lg hover:scale-105 transform transition">Buy Now</button>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="bg-gray-50 py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-3xl font-bold text-center mb-8">Contact Us</h3>
-          <div className="text-center mb-8">
-            <p className="flex items-center justify-center gap-2"><Mail className="w-5 h-5"/> nivriti@example.com</p>
-            <p className="flex items-center justify-center gap-2 mt-2"><Phone className="w-5 h-5"/> +880 1XXX-XXXXXX</p>
-          </div>
-          <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-            <div className="grid gap-4">
-              <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your Name" className="px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-600" />
-              <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Your Email" className="px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-600" />
-              <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="Your Message" rows={4} className="px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-600"></textarea>
-              <button type="submit" className="bg-indigo-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-indigo-700 transition">Send Message</button>
-            </div>
+      <section id="contact" className="bg-gradient-to-r from-pink-50 to-purple-50 py-20 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-4xl font-bold text-purple-700 mb-6">Get in Touch</h3>
+          <p className="text-gray-700 mb-6">Have a question or want to place a custom order? Reach out to us!</p>
+          <p className="flex items-center justify-center gap-2 mb-2"><Mail className="w-5 h-5 text-purple-600"/> nivriti@example.com</p>
+          <p className="flex items-center justify-center gap-2 mb-8"><Phone className="w-5 h-5 text-purple-600"/> +880 1XXX-XXXXXX</p>
+          <form onSubmit={handleSubmit} className="bg-white p-8 rounded-3xl shadow-xl space-y-4">
+            <input value={name} onChange={(e)=>setName(e.target.value)} placeholder="Your Name" className="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none" />
+            <input value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Your Email" className="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none" />
+            <textarea value={message} onChange={(e)=>setMessage(e.target.value)} placeholder="Your Message" rows={4} className="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"></textarea>
+            <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-2xl shadow-lg hover:scale-105 transform transition">Send Message</button>
           </form>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-6 text-center border-t">
+      <footer className="py-6 text-center border-t bg-white/80 backdrop-blur-md">
         <p>© {new Date().getFullYear()} Nivriti. All rights reserved.</p>
       </footer>
     </div>
