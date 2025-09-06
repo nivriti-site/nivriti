@@ -10,7 +10,8 @@
   <!-- ================= HEADER ================= -->
   <header>
     <div class="container nav">
-      <h1 class="logo">Nivriti</h1>
+      <!-- Logo (loads from JSON in script) -->
+      <img src="logo.png" alt="Nivriti Logo" class="site-logo" />
       <nav>
         <a href="#products">Products</a>
         <a href="#order">Order</a>
@@ -36,13 +37,32 @@
     </div>
   </section>
 
-  
+  <!-- ================= ORDER FORM ================= -->
+  <section id="order" class="order-section">
+    <h2 class="section-title">Place Your Order</h2>
+    <form action="https://formspree.io/f/xldwarge" method="POST" class="order-form">
+      <label>Your Name:<input type="text" name="name" required></label>
+      <label>Address:<input type="text" name="address" required></label>
+      <label>Mobile Number:<input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="017XXXXXXXX" required></label>
+      <label>Email Address:<input type="email" name="email" required></label>
+      <label>Product Name:<input type="text" name="product" required></label>
+      <label>Quantity:<input type="number" name="quantity" min="1" value="1" required></label>
+      <label>Additional Notes:<textarea name="notes" rows="4" placeholder="Any special request..."></textarea></label>
+      <button type="submit" class="btn">Submit Order</button>
+    </form>
+  </section>
 
   <!-- ================= CONTACT ================= -->
   <section id="contact" class="contact-section">
     <h2 class="section-title">Get in Touch</h2>
     <p>Email: <a href="mailto:nivriti.shop.bd@gmail.com">nivriti.shop.bd@gmail.com</a></p>
     <p>Phone: +880 1614894716</p>
+  </section>
+
+  <!-- ================= COMMENTS ================= -->
+  <section id="comments" class="container">
+    <h2 class="section-title">Customer Reviews</h2>
+    <div id="utterances-comments"></div>
   </section>
 
   <!-- ================= FOOTER ================= -->
@@ -55,92 +75,43 @@
     // Load current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Fetch products from products.json
+    // Fetch products and logo from products.json
     fetch('products.json')
       .then(res => res.json())
       .then(data => {
+        // Set logo from JSON (if exists)
+        if (data.logo) {
+          document.querySelector('.site-logo').src = data.logo;
+        }
+
+        // Render products
         const container = document.getElementById('product-list');
-        container.innerHTML = data.map(p => `
+        container.innerHTML = data.products.map(p => `
           <div class="product-card">
-            <img src=\"${p.image}\" alt=\"${p.name}\" />
+            <img src="${p.image}" alt="${p.name}" />
             <h3>${p.name}</h3>
             <p>${p.desc}</p>
-            <p class=\"price\">${p.price}</p>
-            <button class=\"btn\">Order Now</button>
+            <p class="price">${p.price}</p>
+            <button class="btn">Order Now</button>
           </div>
         `).join('');
       });
 
-<!-- ================= ORDER FORM ================= -->
-<form action="https://formspree.io/f/xldwarge" method="POST" class="order-form">
-  <!-- Customer Name -->
-  <label>
-    Your Name:
-    <input type="text" name="name" required>
-  </label>
-
-  <!-- Customer Address -->
-  <label>
-    Address:
-    <input type="text" name="address" required>
-  </label>
-
-  <!-- Mobile Number -->
-  <label>
-    Mobile Number:
-    <input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="e.g. 017XXXXXXXX" required>
-  </label>
-
-  <!-- Email Address -->
-  <label>
-    Email Address:
-    <input type="email" name="email" required>
-  </label>
-
-  <!-- Product Name -->
-  <label>
-    Product Name:
-    <input type="text" name="product" required>
-  </label>
-
-  <!-- Quantity -->
-  <label>
-    Quantity:
-    <input type="number" name="quantity" min="1" value="1" required>
-  </label>
-
-  <!-- Additional Notes -->
-  <label>
-    Additional Notes:
-    <textarea name="notes" rows="4" placeholder="Any special request..."></textarea>
-  </label>
-
-  <!-- Submit -->
-  <button type="submit" class="btn">Submit Order</button>
-</form>
-
-
-    // Order form submit alert
+    // Simple alert on order form submit
     document.querySelector('.order-form').addEventListener('submit', function(e){
       e.preventDefault();
       alert('✅ Thank you! Your order has been received.');
       this.reset();
     });
   </script>
-<!-- ================= COMMENTS ================= -->
-<section id="comments" class="container">
-  <h2 class="section-title">Customer Reviews</h2>
-  <div id="utterances-comments"></div>
-</section>
 
-<!-- Utterances script -->
-<script src="https://utteranc.es/client.js"
-        repo="yourusername/nivriti"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-
+  <!-- Utterances script for comments -->
+  <script src="https://utteranc.es/client.js"
+          repo="nivriti-site/nivriti"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+  </script>
 </body>
 </html>
