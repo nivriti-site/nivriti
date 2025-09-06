@@ -1,23 +1,23 @@
 {
-  "logo": "logo.png",
+  "logo": "images/logo.jpg",
   "products": [
     {
       "name": "Scented Candle",
       "desc": "Beautifully crafted candle with natural scents.",
       "price": "BDT 500",
-      "image": "https://via.placeholder.com/400x300?text=Scented+Candle"
+      "image": "images/candle.jpg"
     },
     {
       "name": "Handmade Bangle",
       "desc": "Colorful handmade bangle, perfect for style.",
       "price": "BDT 300",
-      "image": "https://via.placeholder.com/400x300?text=Handmade+Bangle"
+      "image": "images/bangle.jpg"
     },
     {
       "name": "Decorative Jar",
       "desc": "Aesthetic jar to decorate your home.",
       "price": "BDT 450",
-      "image": "https://via.placeholder.com/400x300?text=Decorative+Jar"
+      "image": "images/jar.jpg"
     }
   ]
 }
