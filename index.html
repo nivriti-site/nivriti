@@ -57,13 +57,7 @@
     <h2 class="section-title">Get in Touch</h2>
     <p>Email: <a href="mailto:nivriti.shop.bd@gmail.com">nivriti.shop.bd@gmail.com</a></p>
     <p>Phone: +880 1614894716</p>
-  </section>
-
-  <!-- ================= COMMENTS ================= -->
-  <section id="comments" class="container">
-    <h2 class="section-title">Customer Reviews</h2>
-    <div id="utterances-comments"></div>
-  </section>
+  </section>  
 
   <!-- ================= FOOTER ================= -->
   <footer>
@@ -74,6 +68,13 @@
   <script>
     // Load current year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+  <!-- ================= COMMENTS ================= -->
+  <section id="comments" class="container">
+    <h2 class="section-title">Customer Reviews</h2>
+    <div id="utterances-comments"></div>
+  </section>
+
 
     // Fetch products and logo from products.json
     fetch('products.json')
