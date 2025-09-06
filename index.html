@@ -1,141 +1,94 @@
-/* General styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.6;
-  background: #fafafa;
-  color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nivriti — Handmade Crafts</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container nav">
+      <h1 class="logo">Nivriti</h1>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#order">Order</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-/* Header */
-.site-header {
-  background: #333;
-  color: white;
-  padding: 1rem 0;
-}
-.site-header .wrap {
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.site-header nav a {
-  margin: 0 10px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-}
-.site-header nav a:hover {
-  text-decoration: underline;
-}
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Handmade with Love ✨</h2>
+      <p>Explore Nivriti’s colorful crafts — candles, bangles, and more — crafted to brighten your world.</p>
+      <a href="#products" class="btn">Shop Now</a>
+    </div>
+  </section>
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(to right, #ff7eb3, #ff758c);
-  color: white;
-  text-align: center;
-  padding: 3rem 1rem;
-}
-.hero h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-.hero .btn-hero {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  margin-top: 1rem;
-  background: #fff;
-  color: #ff758c;
-  font-weight: bold;
-  border-radius: 5px;
-  text-decoration: none;
-}
+  <!-- ================= PRODUCTS ================= -->
+  <section id="products" class="container">
+    <h2 class="section-title">Our Products</h2>
+    <div id="product-list" class="product-grid">
+      <!-- Products will load dynamically from products.json -->
+    </div>
+  </section>
 
-/* Product grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-.card {
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.card .price {
-  color: #ff758c;
-  font-weight: bold;
-  margin: 0.5rem 0;
-}
-.card .btn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: #ff758c;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-}
-.card .btn:hover {
-  background: #ff5272;
-}
+  <!-- ================= ORDER ================= -->
+  <section id="order" class="order-section">
+    <h2 class="section-title">Place Your Order</h2>
+    <form class="order-form">
+      <!-- Customer details -->
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <input type="text" placeholder="Product Name" required />
+      <input type="number" placeholder="Quantity" min="1" value="1" required />
+      <textarea placeholder="Additional Notes (optional)"></textarea>
+      <button type="submit" class="btn">Submit Order</button>
+    </form>
+  </section>
 
-/* Loader */
-.loader {
-  margin: 2rem auto;
-  border: 5px solid #eee;
-  border-top: 5px solid #ff758c;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="contact-section">
+    <h2 class="section-title">Get in Touch</h2>
+    <p>Email: <a href="mailto:nivriti@example.com">nivriti@example.com</a></p>
+    <p>Phone: +880 1XXX-XXXXXX</p>
+  </section>
 
-/* Scroll to top */
-.scroll-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 0.7rem;
-  border-radius: 50%;
-  cursor: pointer;
-  display: none;
-  font-size: 1.2rem;
-  transition: background 0.3s;
-}
-.scroll-top:hover {
-  background: #ff758c;
-}
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <p>© <span id="year"></span> Nivriti. All rights reserved.</p>
+  </footer>
 
-/* Footer */
-.site-footer {
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-}
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    // Load current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fetch products from products.json
+    fetch('products.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('product-list');
+        container.innerHTML = data.map(p => `
+          <div class="product-card">
+            <img src=\"${p.image}\" alt=\"${p.name}\" />
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <p class=\"price\">${p.price}</p>
+            <button class=\"btn\">Order Now</button>
+          </div>
+        `).join('');
+      });
+
+    // Order form submit alert
+    document.querySelector('.order-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('✅ Thank you! Your order has been received.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
