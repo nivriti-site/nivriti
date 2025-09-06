@@ -4,19 +4,19 @@
     {
       "name": "Scented Candle",
       "desc": "Beautifully crafted candle with natural scents.",
-      "price": "BDT 500",
+      "price": "BDT 400",
       "image": "images/candle.jpg"
     },
     {
       "name": "Handmade Bangle",
       "desc": "Colorful handmade bangle, perfect for style.",
-      "price": "BDT 300",
+      "price": "BDT 350",
       "image": "images/bangle.jpg"
     },
     {
       "name": "Decorative Jar",
       "desc": "Aesthetic jar to decorate your home.",
-      "price": "BDT 450",
+      "price": "BDT 400",
       "image": "images/jar.jpg"
     }
   ]
