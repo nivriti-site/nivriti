@@ -36,25 +36,13 @@
     </div>
   </section>
 
-  <!-- ================= ORDER ================= -->
-  <section id="order" class="order-section">
-    <h2 class="section-title">Place Your Order</h2>
-    <form class="order-form">
-      <!-- Customer details -->
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <input type="text" placeholder="Product Name" required />
-      <input type="number" placeholder="Quantity" min="1" value="1" required />
-      <textarea placeholder="Additional Notes (optional)"></textarea>
-      <button type="submit" class="btn">Submit Order</button>
-    </form>
-  </section>
+  
 
   <!-- ================= CONTACT ================= -->
   <section id="contact" class="contact-section">
     <h2 class="section-title">Get in Touch</h2>
-    <p>Email: <a href="mailto:nivriti@example.com">nivriti@example.com</a></p>
-    <p>Phone: +880 1XXX-XXXXXX</p>
+    <p>Email: <a href="mailto:nivriti.shop.bd@gmail.com">nivriti.shop.bd@gmail.com</a></p>
+    <p>Phone: +880 1614894716</p>
   </section>
 
   <!-- ================= FOOTER ================= -->
@@ -82,6 +70,55 @@
           </div>
         `).join('');
       });
+
+<!-- ================= ORDER FORM ================= -->
+<form action="https://formspree.io/f/xldwarge" method="POST" class="order-form">
+  <!-- Customer Name -->
+  <label>
+    Your Name:
+    <input type="text" name="name" required>
+  </label>
+
+  <!-- Customer Address -->
+  <label>
+    Address:
+    <input type="text" name="address" required>
+  </label>
+
+  <!-- Mobile Number -->
+  <label>
+    Mobile Number:
+    <input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="e.g. 017XXXXXXXX" required>
+  </label>
+
+  <!-- Email Address -->
+  <label>
+    Email Address:
+    <input type="email" name="email" required>
+  </label>
+
+  <!-- Product Name -->
+  <label>
+    Product Name:
+    <input type="text" name="product" required>
+  </label>
+
+  <!-- Quantity -->
+  <label>
+    Quantity:
+    <input type="number" name="quantity" min="1" value="1" required>
+  </label>
+
+  <!-- Additional Notes -->
+  <label>
+    Additional Notes:
+    <textarea name="notes" rows="4" placeholder="Any special request..."></textarea>
+  </label>
+
+  <!-- Submit -->
+  <button type="submit" class="btn">Submit Order</button>
+</form>
+
 
     // Order form submit alert
     document.querySelector('.order-form').addEventListener('submit', function(e){
