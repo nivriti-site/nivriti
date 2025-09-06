@@ -1,16 +1,21 @@
 [
   {
-    "name": "Bengles",
-    "description": "Handmade beauty bengles",
-    "price": "180",
-    "image": "https://imgur.com/PBJ0g9G",
-    "fb_link": "https://www.facebook.com/profile.php?id=61575686784564"
+    "name": "Scented Candle",
+    "desc": "Beautifully crafted candle with natural scents.",
+    "price": "BDT 500",
+    "image": "https://via.placeholder.com/400x300?text=Scented+Candle"
   },
   {
-    "name": "Daisy Glass Candle",
-    "description": "Glass jar with daisy design",
-    "price": "380",
-    "image": "https://imgur.com/2MrnyhD",
-    "fb_link": "https://www.facebook.com/profile.php?id=61575686784564"
+    "name": "Handmade Bangle",
+    "desc": "Colorful handmade bangle, perfect for style.",
+    "price": "BDT 300",
+    "image": "https://via.placeholder.com/400x300?text=Handmade+Bangle"
+  },
+  {
+    "name": "Decorative Jar",
+    "desc": "Aesthetic jar to decorate your home.",
+    "price": "BDT 450",
+    "image": "https://via.placeholder.com/400x300?text=Decorative+Jar"
   }
 ]
+
