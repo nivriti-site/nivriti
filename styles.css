@@ -1,8 +1,44 @@
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fafafa; }
-header { background: #333; color: #fff; padding: 20px; text-align: center; }
-header a { color: #ffda00; text-decoration: none; }
-main { padding: 20px; }
-#product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-.card { background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 8px; text-align: center; }
-.card img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; }
-footer { background: #333; color: #fff; text-align: center; padding: 10px; margin-top: 20px; }
+/* ===== General Reset ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; background: #fff; color: #333; }
+
+/* ===== Layout ===== */
+.container { max-width: 1100px; margin: auto; padding: 20px; }
+.section-title { text-align: center; font-size: 2rem; margin: 40px 0 20px; color: #6b21a8; }
+
+/* ===== Header ===== */
+header { background: #fff; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 100; }
+header .nav { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.8rem; font-weight: bold; color: #d946ef; }
+nav a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 500; transition: 0.3s; }
+nav a:hover { color: #9333ea; }
+
+/* ===== Hero ===== */
+.hero { background: linear-gradient(135deg, #f9a8d4, #c084fc); color: white; text-align: center; padding: 100px 20px; }
+.hero h2 { font-size: 3rem; margin-bottom: 20px; }
+.hero p { max-width: 600px; margin: auto; font-size: 1.2rem; margin-bottom: 20px; }
+
+/* ===== Buttons ===== */
+.btn { display: inline-block; padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, #9333ea, #ec4899); color: white; font-weight: bold; cursor: pointer; transition: 0.3s; border: none; }
+.btn:hover { transform: scale(1.05); }
+
+/* ===== Products ===== */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.product-card { background: #fff; border-radius: 20px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); padding: 20px; text-align: center; transition: transform 0.3s; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
+.product-card h3 { color: #d946ef; font-size: 1.3rem; margin-bottom: 10px; }
+.product-card .price { color: #6b21a8; font-weight: bold; margin: 10px 0; }
+
+/* ===== Order Section ===== */
+.order-section { background: #faf5ff; padding: 50px 20px; }
+.order-form { display: grid; gap: 15px; max-width: 500px; margin: auto; }
+.order-form input, .order-form textarea { padding: 10px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
+.order-form input:focus, .order-form textarea:focus { border-color: #9333ea; outline: none; }
+
+/* ===== Contact ===== */
+.contact-section { background: #fff; padding: 40px 20px; text-align: center; }
+.contact-section a { color: #9333ea; }
+
+/* ===== Footer ===== */
+footer { background: #f3e8ff; text-align: center; padding: 15px; margin-top: 20px; font-size: 0.9rem; }
