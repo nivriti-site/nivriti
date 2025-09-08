@@ -32,6 +32,9 @@
   <section id="products" class="container">
     <h2 class="section-title">Our Products</h2>
     <div id="product-list" class="product-grid"></div>
+
+<div id="product-list"></div>
+
   </section>
 
   <!-- ================= ORDER FORM ================= -->
@@ -46,6 +49,15 @@
       <label>Quantity:<input type="number" name="quantity" min="1" value="1" required></label>
       <label>Additional Notes:<textarea name="notes" rows="4" placeholder="Any special request..."></textarea></label>
       <button type="submit" class="btn">Submit Order</button>
+<form class="order-form" id="order-form">
+  <!-- product name input (readonly is optional) -->
+  <input id="order-product-name" name="product_name" placeholder="Product name" readonly />
+
+  <!-- other inputs... -->
+  <textarea name="notes"></textarea>
+  <button type="submit" class="btn">Submit order</button>
+
+
     </form>
   </section>
 
@@ -82,18 +94,55 @@
         }
 
         // Render products
-        const container = document.getElementById('product-list');
-        container.innerHTML = data.products.map(p => `
-          <div class="product-card">
-            <img src="${p.image}" alt="${p.name}"
-                 onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}';" />
-            <h3>${p.name}</h3>
-            <p>${p.desc}</p>
-            <p class="price">${p.price}</p>
-            <button class="btn">Order Now</button>
-          </div>
-        `).join('');
-      });
+        // --- Render products (replace your current render code with this) ---
+const container = document.getElementById('product-list');
+
+container.innerHTML = data.products.map(p => `
+  <div class="product-card">
+    <img src="${p.image}" alt="${p.name}"
+         onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}';" />
+    <h3>${p.name}</h3>
+    <p>${p.desc}</p>
+    <p class="price">${p.price}</p>
+    <!-- type="button" prevents accidental form submit if nested inside a form -->
+    <button type="button" class="btn order-now" data-product="${encodeURIComponent(p.name)}">Order Now</button>
+  </div>
+`).join('');
+
+// --- Event delegation: handle clicks on any Order Now button ---
+container.addEventListener('click', (e) => {
+  const btn = e.target.closest('.order-now');
+  if (!btn) return;
+
+  const productName = decodeURIComponent(btn.dataset.product || '');
+
+  // Find the product input in the order form. Try common selectors:
+  const productInput =
+    document.querySelector('#order-product-name') ||
+    document.querySelector('input[name="product_name"]') ||
+    document.querySelector('.order-form input[name="product_name"]');
+
+  if (productInput) {
+    productInput.value = productName;
+    productInput.focus();
+
+    // Scroll to the order section / form if present on the same page
+    const orderSection =
+      document.querySelector('.order-section') ||
+      document.querySelector('form.order-form') ||
+      document.getElementById('order-form');
+
+    if (orderSection) {
+      orderSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  } else {
+    // Fallback: store and navigate to order page (change URL if your order page is different)
+    localStorage.setItem('preselectedProduct', productName);
+    // adjust '/order.html' to the real page if different
+    window.location.href = '/order.html?product=' + encodeURIComponent(productName);
+  }
+});
+
 
     // Order form submit alert
     document.querySelector('.order-form').addEventListener('submit', function(e){
