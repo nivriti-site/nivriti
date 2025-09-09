@@ -125,41 +125,50 @@ nav a:hover {
 }
 
 /* ================= ORDER FORM ================= */
+/* ============ ORDER FORM STYLING ============ */
 .order-section {
-  background: linear-gradient(120deg, #fce7f3, #ede9fe);
-  padding: 60px 20px;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+  padding: 3rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 3rem auto;
+  max-width: 1000px;
 }
 
-.order-section .order-form {
-  max-width: 500px;
-  margin: auto;
-  display: grid;
-  gap: 15px;
+.order-section .section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  font-weight: bold;
 }
 
-.order-form input,
-.order-form textarea,
-.order-form button.btn {
-  width: 100%;              /* ensures all stretch equally */
-  padding: 12px;
-  border: 2px solid #ddd;
+.form-container {
+  background: #fff;
+  padding: 1rem;
   border-radius: 15px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;   /* keeps padding inside width */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
 }
 
-.order-form input:focus,
-.order-form textarea:focus {
-  border-color: #9333ea;
-  outline: none;
-  box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+/* Make iframe fit nicely */
+.form-container iframe {
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 1250px;
 }
 
-.order-form textarea {
-  resize: vertical; /* allow vertical resize only, optional */
-  min-height: 120px; /* keeps consistent look */
+/* Responsive */
+@media (max-width: 768px) {
+  .order-section {
+    padding: 2rem 1rem;
+  }
+  .form-container iframe {
+    min-height: 1400px;
+  }
 }
+
 
 
 /* ================= CONTACT ================= */
