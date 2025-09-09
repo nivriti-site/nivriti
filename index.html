@@ -86,7 +86,7 @@
         container.innerHTML = data.products.map(p => `
           <div class="product-card">
             <img src="${p.image}" alt="${p.name}"
-                 onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}';" />
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400?text=${encodeURIComponent(p.name)}';" />
             <h3>${p.name}</h3>
             <p>${p.desc}</p>
             <p class="price">${p.price}</p>
