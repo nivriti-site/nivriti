@@ -5,25 +5,25 @@
       "name": "Frosted Daisy",
       "desc": "Candle with natural soothing scents.",
       "price": "BDT 300",
-      "image": "images/Candles.jpg"
+      "image": "images/Frosted daisy.jpg"
     },
     {
       "name": "Aparajita",
       "desc": "Colorful handmade bangle, perfect for style.",
       "price": "BDT 279",
-      "image": "images/Bengles.jpg"
+      "image": "images/Aparajita.jpg"
     },
     {
       "name": "Gulbahar",
       "desc": "Delicate bangles for all occasion.",
       "price": "BDT 189",
-      "image": "images/Bengle.jpg"
+      "image": "images/Gulbahar.jpg"
     },
 {
-      "name": "Charulota",
+      "name": "Charulata",
       "desc": "Vibrant coloured bangles with shells.",
-      "price": "BDT 400",
-      "image": "images/Bengle.jpg"
+      "price": "BDT 149",
+      "image": "images/Charulata.jpg"
     }
   ]
 }
