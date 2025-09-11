@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Nivriti — Handmade Crafts</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -10,6 +10,7 @@
   <!-- ================= HEADER ================= -->
   <header>
     <div class="container nav">
+      <!-- logo will be replaced by products.json if provided -->
       <img src="images/logo.jpg" alt="Nivriti Logo" class="site-logo" />
       <nav>
         <a href="#products">Products</a>
@@ -21,125 +22,270 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <h2>Welcome to Nivriti</h2>
-    <p>Handmade crafts with love – scented candles, bangles & more</p>
-    <a href="#products" class="btn">Shop Now</a>
+    <div class="hero-text">
+      <h2>Handmade with Love ✨</h2>
+      <p>Explore Nivriti’s colorful crafts — Fabricated Bangles, Scented Candles, and more — crafted to brighten your world.</p>
+      <a href="#products" class="btn">Shop Now</a>
+    </div>
   </section>
 
   <!-- ================= PRODUCTS ================= -->
-  <section id="products">
+  <section id="products" class="container">
     <h2 class="section-title">Our Products</h2>
-    <div class="product-grid" id="product-list"></div>
+    <div id="product-list" class="product-grid">
+      <!-- products injected here by JS -->
+    </div>
   </section>
 
-  <!-- ================= ORDER FORM ================= -->
+  <!-- ================= ORDER SECTION ================= -->
   <section id="order" class="order-section">
     <h2 class="section-title">Place Your Order</h2>
-    <form action="https://formspree.io/f/your-form-id" method="POST" class="order-form" id="order-form">
-      <label>Your Name:<input type="text" name="name" required></label>
-      <label>Address:<input type="text" name="address" required></label>
-      <label>Mobile Number:<input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="01XXXXXXXXX" required></label>
-      <label>Email Address:<input type="email" name="email" required></label>
-      <label>Product Name:<input type="text" id="order-product-name" name="product" required></label>
-      <label>Quantity:<input type="number" name="quantity" min="1" value="1" required></label>
-      <label>Additional Notes:<textarea name="notes" rows="4" placeholder="Any special request..."></textarea></label>
+
+    <!--
+      Formspree endpoint:
+      - keep your action as the endpoint you already have (xldwarge)
+      - Form fields match Formspree; you can add/remove fields in HTML as needed.
+    -->
+    <form action="https://formspree.io/f/xldwarge" method="POST" class="order-form" id="order-form">
+      <label>Your Name:
+        <input type="text" name="name" required>
+      </label>
+
+      <label>Address:
+        <input type="text" name="address" required>
+      </label>
+
+      <label>Mobile Number:
+        <input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="01XXXXXXXXX" required>
+      </label>
+
+      <label>Email Address:
+        <input type="email" name="email" required>
+      </label>
+
+      <!-- this field will be auto-filled when visitor clicks "Order Now" but is still editable -->
+      <label>Product Name:
+        <input type="text" id="order-product-name" name="product" required>
+      </label>
+
+      <label>Quantity:
+        <input type="number" name="quantity" min="1" value="1" required>
+      </label>
+
+      <label>Additional Notes:
+        <textarea name="notes" rows="4" placeholder="Any special request..."></textarea>
+      </label>
+
       <button type="submit" class="btn">Submit Order</button>
     </form>
   </section>
 
   <!-- ================= CONTACT ================= -->
   <section id="contact" class="contact-section">
-    <h2 class="section-title">Contact Us</h2>
-    <p>Have questions? Reach us at <a href="mailto:ruscienceclub@gmail.com">ruscienceclub@gmail.com</a></p>
+    <h2 class="section-title">Get in Touch</h2>
+    <p>Email: <a href="mailto:nivriti.shop.bd@gmail.com">nivriti.shop.bd@gmail.com</a></p>
+    <p>Phone: +880 1614894716</p>
   </section>
 
   <!-- ================= COMMENTS ================= -->
-  <section id="comments">
-    <h2 class="section-title">Comments</h2>
-    <p style="text-align:center;">(Integrate a comment widget here later if needed)</p>
+  <section id="comments" class="container">
+    <h2 class="section-title">Customer Reviews</h2>
+    <div id="utterances-comments"></div>
   </section>
 
   <!-- ================= FOOTER ================= -->
   <footer>
-    <p>&copy; 2025 Nivriti Handmade Crafts. All Rights Reserved.</p>
+    <p>© <span id="year"></span> Nivriti. All rights reserved.</p>
   </footer>
 
-  <!-- ================= IMAGE POPUP ================= -->
-  <div id="imgModal" class="img-modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modal-img">
-    <div id="caption"></div>
-    <a class="prev">&#10094;</a>
-    <a class="next">&#10095;</a>
+  <!-- ================= IMAGE POPUP (GALLERY) ================= -->
+  <div id="imgModal" class="img-modal" aria-hidden="true">
+    <button class="close" aria-label="Close image">&times;</button>
+    <img class="modal-content" id="modal-img" alt="">
+    <div id="caption" class="modal-caption"></div>
+    <button class="prev" aria-label="Previous image">&#10094;</button>
+    <button class="next" aria-label="Next image">&#10095;</button>
   </div>
 
   <!-- ================= SCRIPTS ================= -->
   <script>
-    // ===== Load Products from JSON =====
-    fetch("products.json")
-      .then(res => res.json())
+    // --------------------- Small helpers ---------------------
+    function escapeHtml(str = '') {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --------------------- Load products.json (robust) ---------------------
+    // Accepts either:
+    // 1) an array ( [ {name,desc,price,image}, ... ] )
+    // 2) an object { "logo": "...", "products": [ ... ] }
+    fetch('products.json')
+      .then(res => {
+        if (!res.ok) throw new Error('products.json not found (HTTP ' + res.status + ')');
+        return res.json();
+      })
       .then(data => {
-        const list = document.getElementById("product-list");
-        list.innerHTML = data.map((p, index) => `
-          <div class="product-card">
-            <img src="${p.image}" alt="${p.name}" data-index="${index}">
-            <h3>${p.name}</h3>
-            <p class="price">${p.price}</p>
-            <button class="btn btn-order" data-product="${p.name}">Order Now</button>
-          </div>
-        `).join("");
+        let products = [];
+        let logoPath = null;
+
+        if (Array.isArray(data)) {
+          products = data;
+        } else if (data && Array.isArray(data.products)) {
+          products = data.products;
+          if (data.logo) logoPath = data.logo;
+        } else {
+          console.warn('products.json has unexpected format. It should be an array or {logo, products}.');
+        }
+
+        // set logo if provided
+        if (logoPath) {
+          const logoEl = document.querySelector('.site-logo');
+          if (logoEl) logoEl.src = logoPath;
+        }
+
+        const container = document.getElementById('product-list');
+        if (!products.length) {
+          container.innerHTML = '<p class="empty-msg">No products found. Edit <code>products.json</code> to add products.</p>';
+          return;
+        }
+
+        // Build product cards (escape text to avoid accidental markup)
+        container.innerHTML = products.map((p, idx) => {
+          const img = escapeHtml(p.image || `images/placeholder-${idx}.jpg`);
+          const name = escapeHtml(p.name || 'Product');
+          const desc = escapeHtml(p.desc || '');
+          const price = escapeHtml(p.price || '');
+          return `
+            <div class="product-card" data-index="${idx}">
+              <img src="${img}" alt="${name}" data-index="${idx}"
+                   onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400?text=${encodeURIComponent(name)}'"/>
+              <h3>${name}</h3>
+              <p class="desc">${desc}</p>
+              <p class="price">${price}</p>
+              <button type="button" class="btn btn-order" data-product="${name}">Order Now</button>
+            </div>
+          `;
+        }).join('');
+      })
+      .catch(err => {
+        console.error('Error loading products.json:', err);
+        document.getElementById('product-list').innerHTML = '<p class="empty-msg">Could not load products.json — check console.</p>';
       });
 
-    // ===== Order Button Fill =====
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("btn-order")) {
-        document.getElementById("order-product-name").value = e.target.dataset.product;
-        document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+    // --------------------- Order Now behavior ---------------------
+    // single listener: when user clicks product order button -> fill product name & scroll to form
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn-order');
+      if (!btn) return;
+      const productName = btn.dataset.product || '';
+      const input = document.getElementById('order-product-name');
+      if (input) {
+        input.value = productName;   // user can still edit it
+        input.focus();
       }
+      const orderSection = document.getElementById('order');
+      if (orderSection) orderSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
-    // ===== IMAGE POPUP WITH GALLERY =====
+    // --------------------- Formspree submit (AJAX with feedback) ---------------------
+    const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+      orderForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = e.target;
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+          if (response.ok) {
+            alert('✅ Thank you! Your order has been submitted.');
+            form.reset();
+          } else {
+            alert('⚠️ There was an issue sending your order. Please try again.');
+          }
+        })
+        .catch(() => alert('⚠️ Network error. Please check your connection and try again.'));
+      });
+    }
+
+    // --------------------- Image modal / gallery ---------------------
+    let galleryImages = [];
     let currentIndex = 0;
-    let images = [];
 
-    document.addEventListener("click", function(e) {
-      if (e.target.tagName === "IMG" && e.target.closest(".product-card")) {
-        images = Array.from(document.querySelectorAll(".product-card img"));
-        currentIndex = images.indexOf(e.target);
-
-        openModal(currentIndex);
-      }
+    // open modal when product image clicked
+    document.addEventListener('click', function (e) {
+      const imgEl = e.target.closest('.product-card img');
+      if (!imgEl) return;
+      galleryImages = Array.from(document.querySelectorAll('.product-card img'));
+      currentIndex = galleryImages.indexOf(imgEl);
+      openModal(currentIndex);
     });
 
     function openModal(index) {
-      const modal = document.getElementById("imgModal");
-      const modalImg = document.getElementById("modal-img");
-      const caption = document.getElementById("caption");
-
-      modal.style.display = "block";
-      modalImg.src = images[index].src;
-      caption.innerHTML = images[index].alt;
+      const modal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('modal-img');
+      const caption = document.getElementById('caption');
+      if (!galleryImages.length) return;
+      const img = galleryImages[index];
+      modalImg.src = img.src;
+      modalImg.alt = img.alt || '';
+      caption.textContent = img.alt || '';
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
     }
 
-    document.querySelector(".img-modal .close").addEventListener("click", () => {
-      document.getElementById("imgModal").style.display = "none";
+    // close modal
+    document.querySelector('.img-modal .close').addEventListener('click', () => {
+      const modal = document.getElementById('imgModal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
     });
 
-    document.querySelector(".img-modal .prev").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
+    // prev / next
+    document.querySelector('.img-modal .prev').addEventListener('click', () => {
+      if (!galleryImages.length) return;
+      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      openModal(currentIndex);
+    });
+    document.querySelector('.img-modal .next').addEventListener('click', () => {
+      if (!galleryImages.length) return;
+      currentIndex = (currentIndex + 1) % galleryImages.length;
       openModal(currentIndex);
     });
 
-    document.querySelector(".img-modal .next").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      openModal(currentIndex);
-    });
-
-    document.getElementById("imgModal").addEventListener("click", (e) => {
-      if (e.target.id === "imgModal") {
-        e.target.style.display = "none";
+    // close when click outside image
+    document.getElementById('imgModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imgModal') {
+        e.target.style.display = 'none';
       }
     });
+
+    // Keyboard navigation (Esc, Left, Right)
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('imgModal');
+      if (!modal || modal.style.display !== 'block') return;
+      if (e.key === 'Escape') modal.style.display = 'none';
+      if (e.key === 'ArrowLeft') document.querySelector('.img-modal .prev').click();
+      if (e.key === 'ArrowRight') document.querySelector('.img-modal .next').click();
+    });
+  </script>
+
+  <!-- Utterances comments (leave as-is or update repo attribute) -->
+  <script src="https://utteranc.es/client.js"
+          repo="nivriti-site/nivriti"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
   </script>
 </body>
 </html>
