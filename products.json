@@ -9,7 +9,7 @@
     },
     {
       "name": "Aparajita",
-      "desc": "Colorful handmade bangle, perfect for style.",
+      "desc": "Colorful bangle, perfect for style.",
       "price": "BDT 279",
       "image": "images/Aparajita.jpg"
     },
@@ -24,6 +24,13 @@
       "desc": "Vibrant coloured bangles with shells.",
       "price": "BDT 149",
       "image": "images/Charulata.jpg"
+    }
+    },
+{
+      "name": "Lavender Lumière",
+      "desc": "Hand Poured scented Candle",
+      "price": "BDT 120",
+      "image": "images/Lavender Lumière.jpg"
     }
   ]
 }
