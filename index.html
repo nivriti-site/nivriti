@@ -34,10 +34,22 @@
     <div id="product-list" class="product-grid"></div>
   </section>
 
-  <!-- ================= ORDER FORM ================= -->
-<section id="order" class="order-section"> <h2 class="section-title">Place Your Order</h2> <form action="https://docs.google.com/forms/d/e/1FAIpQLSfHLwjxkYo3sjjNYvKkRT43A-XeuZLX1joTYvvfLfIxzqgL8Q/viewform?embedded=true" method="POST" 
- class="order-form" id="order-form"> <label>Your Name:<input type="text" name="name" required></label> <label>Address:<input type="text" name="address" required></label> <label>Mobile Number:<input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="01XXXXXXXXX" required></label> <label>Email Address:<input type="email" name="email" required></label> <label>Product Name:<input type="text" id="order-product-name" name="product" readonly required></label> <label>Quantity:<input type="number" name="quantity" min="1" value="1" required></label> <label>Additional Notes:<textarea name="notes" rows="4" placeholder="Any special request..."></textarea></label> <button type="submit" class="btn">Submit Order</button> </form> </section>
+  <!-- ================= ORDER SECTION ================= -->
+  <section id="order" class="order-section">
+    <h2 class="section-title">Place Your Order</h2>
 
+    <!-- Custom Order Form -->
+    <form action="https://formspree.io/f/xldwarge" method="POST" class="order-form" id="order-form">
+      <label>Your Name:<input type="text" name="name" required></label>
+      <label>Address:<input type="text" name="address" required></label>
+      <label>Mobile Number:<input type="tel" name="mobile" pattern="[0-9]{10,15}" placeholder="01XXXXXXXXX" required></label>
+      <label>Email Address:<input type="email" name="email" required></label>
+      <label>Product Name:<input type="text" id="order-product-name" name="product" required></label>
+      <label>Quantity:<input type="number" name="quantity" min="1" value="1" required></label>
+      <label>Additional Notes:<textarea name="notes" rows="4" placeholder="Any special request..."></textarea></label>
+      <button type="submit" class="btn">Submit Order</button>
+    </form>
+  </section>
 
   <!-- ================= CONTACT ================= -->
   <section id="contact" class="contact-section">
@@ -80,35 +92,42 @@
             <h3>${p.name}</h3>
             <p>${p.desc}</p>
             <p class="price">${p.price}</p>
-            <button type="button" class="btn order-now" data-product="${encodeURIComponent(p.name)}">Order Now</button>
+            <button type="button" class="btn btn-order" data-product="${encodeURIComponent(p.name)}">Order Now</button>
           </div>
         `).join('');
-
-        // Handle Order Now button clicks
-        container.addEventListener('click', (e) => {
-          const btn = e.target.closest('.order-now');
-          if (!btn) return;
-
-          const productName = decodeURIComponent(btn.dataset.product || '');
-          const productInput = document.getElementById('order-product-name');
-
-          if (productInput) {
-            productInput.value = productName;
-            productInput.focus();
-
-            const orderSection = document.getElementById('order');
-            if (orderSection) {
-              orderSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }
-        });
       });
 
-    // Order form submit alert
-    document.getElementById('order-form').addEventListener('submit', function(e){
+    // Handle Order Now button clicks
+    document.addEventListener("click", function(e) {
+      if (e.target.classList.contains("btn-order")) {
+        const productName = decodeURIComponent(e.target.dataset.product);
+        const productInput = document.getElementById("order-product-name");
+        productInput.value = productName;
+        document.getElementById("order").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    // Handle Formspree submission
+    document.getElementById("order-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      alert('✅ Thank you! Your order has been received.');
-      this.reset();
+      const form = e.target;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("✅ Thank you! Your order has been submitted.");
+          form.reset();
+        } else {
+          alert("⚠️ There was an issue sending your order. Please try again.");
+        }
+      })
+      .catch(() => {
+        alert("⚠️ Network error. Please check your connection and try again.");
+      });
     });
   </script>
 
