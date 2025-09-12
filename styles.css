@@ -73,4 +73,24 @@ footer { background:linear-gradient(90deg,#9333ea,#ec4899,#facc15); color:#fff; 
   .hero h2 { font-size:2rem; }
   .product-card img { height:180px; }
   .order-section { padding:20px 12px; }
+/* ========== LOGO + BRAND NAME ========== */
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between logo and text */
 }
+
+.site-logo {
+  height: 50px;
+  width: auto;
+}
+
+.site-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #6b21a8;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 1px;
+}
+
+
