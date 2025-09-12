@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
 /* ================= GENERAL RESET ================= */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Segoe UI',sans-serif; line-height:1.6; background:#fff8f0; color:#333; scroll-behavior:smooth; }
@@ -77,20 +79,25 @@ footer { background:linear-gradient(90deg,#9333ea,#ec4899,#facc15); color:#fff; 
 .logo-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px; /* space between logo and text */
+  gap: 12px; /* space between logo and text */
 }
 
 .site-logo {
-  height: 50px;
+  height: 55px;
   width: auto;
 }
 
 .site-name {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #6b21a8;
-  font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 1px;
+  font-size: 2.2rem;  /* bigger text */
+  font-weight: 700;   /* bold */
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  /* Gradient text effect */
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 
